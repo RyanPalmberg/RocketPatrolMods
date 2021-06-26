@@ -33,7 +33,11 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
             frameRate: 30
         });
+
+        //initialize score
         this.p1Score = 0;
+
+        // display score
         let scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
@@ -85,6 +89,7 @@ class Play extends Phaser.Scene {
             this.ship03.update();
         }
     }
+
     checkCollision(rocket, ship) {
         // simple AABB checking
         if (rocket.x < ship.x + ship.width && 
@@ -96,6 +101,7 @@ class Play extends Phaser.Scene {
             return false;
         }
     }
+
     shipExplode(ship) {
         ship.alpha=0;
         let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
@@ -105,9 +111,9 @@ class Play extends Phaser.Scene {
             ship.alpha=1;
             boom.destroy();
         });
+    }
           // score add and repaint
-        this.p1Score += ship.points;
-        this.scoreLeft.text = this.p1Score;
-        }
+    this.p1Score += ship.points;
+    this.scoreLeft.text = this.p1Score;
     }
 }
