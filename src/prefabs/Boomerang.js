@@ -20,13 +20,14 @@ class Boomerang extends Phaser.GameObjects.Sprite {
         }
         if(Phaser.Input.Keyboard.JustDown(keyF) && !this.isFiring) {
             this.isFiring = true;
-            this.sfxBoomerang.play();  // play sfx
+            this.sfxRocket.play();  // play sfx
         }
         if(this.isFiring && this.y >= borderUISize * 3 + borderPadding) {
             this.y -= this.moveSpeed;
-            if(keyDown.JustDown && this.x >= borderUISize + this.width) {
-                this.y += this.moveSpeed;
-
+            if(keyLEFT.isDown && this.x >= borderUISize + this.width) {
+                this.x -= this.moveSpeed2;
+            } else if (keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width) {
+                this.x += this.moveSpeed2;
             }
 
         }
