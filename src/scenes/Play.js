@@ -18,8 +18,6 @@ class Play extends Phaser.Scene {
         this.starfield=this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
         this.parallax=this.add.tileSprite(0, 0, 640, 480, 'parallax').setOrigin(0, 0);
 
-
-        // this.p1Boom = new Boomerang(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
 
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -37,31 +35,12 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
-        // this.shipAnimation(this.ship01);
+
         this.anims.create({
             key: 'explode',
             frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
             frameRate: 20
-        // })
-        // this.anims.create({
-        //     key: 'driller1',
-        //     frames: this.anims.generateFrameNumbers('spaceshipanim', { start: 0, end: 0, first: 0}),
-        //     frameRate: 14,
-        //     repeat:-1
-        // })
 
-        // this.anims.create({
-        //     key: 'driller2',
-        //     frames: this.anims.generateFrameNumbers('spaceshipanim', { start: 1, end: 1, first: 1}),
-        //     frameRate: 14,
-        //     repeat:-1
-        // })
-
-        // this.anims.create({
-        //     key: 'driller3',
-        //     frames: this.anims.generateFrameNumbers('spaceshipanim', { start: 2, end: 2, first: 2}),
-        //     frameRate: 14,
-        //     repeat:-1
         
         });
 
@@ -84,7 +63,7 @@ class Play extends Phaser.Scene {
           }
         
             this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
-            this.fire = this.add.text(borderUISize + borderPadding*3, borderUISize + borderPadding*2, 'FIRE', scoreConfig)
+            // this.fire = this.add.text(borderUISize + borderPadding*3, borderUISize + borderPadding*2, 'FIRE', scoreConfig)
 
             
         // GAME OVER flag
@@ -99,28 +78,7 @@ class Play extends Phaser.Scene {
         if (!this.gameOver) {
             this.sound.play('sfx_BGM');
         }
-        // if (this.gameOver == true) {
-        //     this.sound.pause('sfx_BGM');
-        //     this.sound.currentTime = 0;
-        // }
 
-        // Display Time
-        // let timerDisplay = {
-        //     fontFamily: 'Courier',
-        //     fontSize: '28px',
-        //     backgroundColor: '#F3B141',
-        //     color: '#843605',
-        //     align: 'left',
-        //     padding: {
-        //         top: 5,
-        //         bottom: 5,
-        //     },
-        //         fixedWidth: 100
-        //     }
-        //         let startTime = (game.settings.gameTimer);
-        //         // let timerD = (game.settings.gameTimer)
-        //         let remainingtime = this.add.text(borderUISize*15 + borderPadding, borderUISize + borderPadding*2, startTime, timerDisplay);
-        
             
     }
     update() {
@@ -140,11 +98,7 @@ class Play extends Phaser.Scene {
             this.ship03.update();
             this.ship04.update();
         }
-        // let substituteclock = game.settings.gameTimer
-        // if (game.settings.gameTimer = substituteclock - 1,000) {
-        //     this.remainingtime = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, game.settings.gameTimer, timerDisplay);
-        //     substituteclock = game.settings.gameTimer
-        // }
+
         if (this.checkCollision(this.p1Rocket, this.ship04)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship04);
@@ -164,12 +118,6 @@ class Play extends Phaser.Scene {
         
         
 
-        // if (!this.gameOver) {               
-        //     this.p1Rocket.update();         // update rocket sprite
-        //     this.ship01.update();           // update spaceships (x3)
-        //     this.ship02.update();
-        //     this.ship03.update();
-        // }
     }
 
     checkCollision(rocket, ship) {
@@ -183,35 +131,7 @@ class Play extends Phaser.Scene {
             return false;
         }
     }
-    // let (p = 0)
 
-    // Here I attempted to animate the spaceships fram by frame, but I couldn't get the syntax right.
-
-    // shipAnimation(ship) {
-    //     let drilly = this.add.sprite(ship.x, ship.y, 'driller').setOrigin(0, 0);
-    //     if (p = 0) {
-
-    //         drilly.anims.play('driller1');
-    //         drilly.on('animationcomplete', () => {
-    //             drilly.destroy();
-    //             p += 1;
-    //         }
-    //     }
-    //     if (p = 1) {
-    //         drilly.anims.play('driller2');
-    //         drilly.on('animationcomplete', () => {
-    //             drilly.destroy();
-    //             p += 1;
-    //         })
-    //     }
-    //     if (p = 2) {
-    //         drilly.anims.play('driller3');
-    //         drilly.on('animationcomplete', () => {
-    //             drilly.destroy();
-    //             p = 0;
-    //     }
-        
-    // }
 
     shipExplode(ship) {
         ship.alpha=0;
@@ -226,8 +146,6 @@ class Play extends Phaser.Scene {
           // score add and repaint
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score;
-        // int j = ((Math.random() * (3-0))+0);
-        // int (random_int) = (int)Math.floor(Math.random()*(max-min+1)+min);
         var rando = Phaser.Math.Between(0, 3);
             if (rando==2) {
                 this.sound.play('sfx_explosion1');
@@ -241,9 +159,7 @@ class Play extends Phaser.Scene {
             if (rando==3) {
                 this.sound.play('sfx_explosion4');
             }
-        // this.sound.
-        // this.sound.
-        // this.sound.play('sfx_explosion');
+       
     }
 
 }
